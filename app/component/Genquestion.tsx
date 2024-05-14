@@ -48,8 +48,6 @@ export default function Genquestion({ progress, setProgress }: any) {
     const answer = allSelected;
     //console.log("answer: ", answer);
 
-    //console.log(process.env.NEXT_PUBLIC_API_URL);
-
     try {
       const response = await axios.post(
         "/api//user/answer",
