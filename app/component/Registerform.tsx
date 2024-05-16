@@ -98,7 +98,7 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       setEnablePreloader(false);
 
       if (res) {
-        router.push("/register/getquestion");
+        router.push("/");
       }
     } else {
       setEnablePreloader(false);
