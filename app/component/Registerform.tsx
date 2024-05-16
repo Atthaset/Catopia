@@ -93,7 +93,7 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       isGenderSelected
     ) {
       const res = await fetchRegisterDB();
-      //console.log('fetchRegisterDB', res);
+      console.log('fetchRegisterDB', res);
 
       setEnablePreloader(false);
 
@@ -121,7 +121,10 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
     }
     try {
       const response = await axios.post("/api/auth/register", data);
-      if (response.status === 200) {
+
+      console.log('response', response);
+      
+      if (response.status === 201) {
         if (response.data.success) {
           return true;
         }
@@ -129,7 +132,6 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       } else {
         throw new Error("Something went wrong");
       }
-
     } catch (error) {
       console.error(error);
       return false;
