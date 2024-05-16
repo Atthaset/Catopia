@@ -1,10 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import Registerform from "../component/Registerform";
+import PreLoader from "../component/Loader/PreLoader";
+import { useState } from "react";
 
 export default function Register() {
+  
+  const [enablePreloader, setEnablePreloader] = useState(false);
+
   return (
     <div className="flex flex-col justify-center items-center mt-40">
-      <Registerform />
+      {enablePreloader && <PreLoader />}
+      <Registerform setEnablePreloader={setEnablePreloader}/>
       <div className="text-center">
         <div className="flex items-center">
           <div className="flex-1 w-[320px] h-[0.001px] shrink-0 border border-line"></div>

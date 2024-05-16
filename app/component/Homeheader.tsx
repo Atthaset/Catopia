@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import learningcats from "../file/learningcats.json";
 
-export default function Homeheader() {
+export default function Homeheader({ setOpenDrawer }: any) {
   const router = useRouter();
 
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -51,7 +51,7 @@ export default function Homeheader() {
         <h1 className="shrink-0 text-2xl text-primary not-italic font-semibold leading-8">
           เลือกแมวที่คุณต้องการ
         </h1>
-        <button className="flex justify-center items-center shrink-0">
+        <button onClick={() => setOpenDrawer(true)} className="flex justify-center items-center shrink-0">
           <Image
             src="/Notification.svg"
             width={24}
@@ -74,7 +74,7 @@ export default function Homeheader() {
         </button>
         <input
           type="text"
-          placeholder="ค้นหา"
+          placeholder="ค้นหาสายพันธุ์แมว"
           onChange={(e) => handleSearch(e)}
           className={`flex w-full h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 ml-8 focus:outline-none border-[none]`}
         />

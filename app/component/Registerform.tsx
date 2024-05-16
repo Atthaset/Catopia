@@ -2,9 +2,20 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { MouseEvent, ChangeEvent, useState, FormEvent, useEffect } from "react";
+import React, {
+  MouseEvent,
+  ChangeEvent,
+  useState,
+  FormEvent,
+  useEffect,
+  SetStateAction,
+} from "react";
 
-export default function Registerform() {
+interface RegisterformProps {
+  setEnablePreloader: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Registerform({ setEnablePreloader }: RegisterformProps) {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -35,7 +46,9 @@ export default function Registerform() {
     setPasswordVisible(!passwordVisible);
   };
 
-  const toggleConfirmPasswordVisibility = (e: MouseEvent<HTMLButtonElement>) => {
+  const toggleConfirmPasswordVisibility = (
+    e: MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
@@ -47,10 +60,16 @@ export default function Registerform() {
   const validateForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const isEmailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
-    const isDateValid = date !== null;
+    setEnablePreloader(true);
+
+    const isEmailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+      email
+    );
+    const isDateValid = date.trim() !== "" && date !;
     const isRegisUsernameValid = username.length >= 4;
-    const isRegisPasswordValid = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/.test(password);
+    const isRegisPasswordValid = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/.test(
+      password
+    );
     const isRegisPasswordMatch = confirmPassword === password;
     const isConfirmPasswordNotEmpty = confirmPassword.trim() !== "";
     const isGenderSelected = !!gender;
@@ -59,7 +78,9 @@ export default function Registerform() {
     setErrorDate(!isDateValid);
     setErrorRegisUsername(!isRegisUsernameValid);
     setErrorRegisPassword(!isRegisPasswordValid);
-    setErrorConfirmPassword(!isConfirmPasswordNotEmpty || !isRegisPasswordMatch); //if confirmPassword is empty or if it doesn't match regisPassword
+    setErrorConfirmPassword(
+      !isConfirmPasswordNotEmpty || !isRegisPasswordMatch
+    ); //if confirmPassword is empty or if it doesn't match regisPassword
     setErrorGender(!isGenderSelected);
 
     if (
@@ -74,10 +95,13 @@ export default function Registerform() {
       const res = await fetchRegisterDB();
       //console.log('fetchRegisterDB', res);
 
+      setEnablePreloader(false);
+
       if (res) {
         router.push("/register/getquestion");
       }
     } else {
+      setEnablePreloader(false);
       setErrorRegister("ข้อมูลไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง");
     }
   };
@@ -96,7 +120,7 @@ export default function Registerform() {
       gender,
     }
     try {
-      const response = await axios.post("/api//auth/register", data);
+      const response = await axios.post("/api/auth/register", data);
       if (response.status === 200) {
         if (response.data.success) {
           return true;
@@ -119,8 +143,13 @@ export default function Registerform() {
   };
 
   return (
-    <form onSubmit={validateForm} className="flex flex-col justify-center items-start gap-2">
-      <h1 className="text-2xl not-italic font-semibold leading-8 text-black01 text-left mb-4">ลงทะเบียน</h1>
+    <form
+      onSubmit={validateForm}
+      className="flex flex-col justify-center items-start gap-2"
+    >
+      <h1 className="text-2xl not-italic font-semibold leading-8 text-black01 text-left mb-4">
+        ลงทะเบียน
+      </h1>
       <input
         value={email}
         onChange={(e) => {
@@ -171,7 +200,10 @@ export default function Registerform() {
           className="absolute right-0 top-0 h-full px-2 border-[none] rounded border-textfield focus:outline-primary flex items-center"
           onClick={(e) => togglePasswordVisibility(e)}
         >
-          <img src={passwordVisible ? "/EyeUnblocked.svg" : "/EyeBlocked.svg"} alt="Password Visibility" />
+          <img
+            src={passwordVisible ? "/EyeUnblocked.svg" : "/EyeBlocked.svg"}
+            alt="Password Visibility"
+          />
         </button>
       </div>
       <div className="flex items-start relative">
@@ -190,11 +222,18 @@ export default function Registerform() {
           className="absolute right-0 top-0 h-full px-2 border-[none] rounded border-textfield focus:outline-primary flex items-center"
           onClick={(e) => toggleConfirmPasswordVisibility(e)}
         >
-          <img src={confirmPasswordVisible ? "/EyeUnblocked.svg" : "/EyeBlocked.svg"} alt="Password Visibility" />
+          <img
+            src={
+              confirmPasswordVisible ? "/EyeUnblocked.svg" : "/EyeBlocked.svg"
+            }
+            alt="Password Visibility"
+          />
         </button>
       </div>
       <div className="text-left mt-2 mb-4">
-        <span className={`${errorGender ? "text-error" : "text-black01"}`}>เพศ</span>
+        <span className={`${errorGender ? "text-error" : "text-black01"}`}>
+          เพศ
+        </span>
         <div className="flex items-center">
           <input
             type="radio"
@@ -208,7 +247,9 @@ export default function Registerform() {
             }}
             className="ml-2 mr-2 mt-2"
           />
-          <span className="rounded-full h-6 w-6 flex items-center justify-center  text-black01 mt-2">ชาย</span>
+          <span className="rounded-full h-6 w-6 flex items-center justify-center  text-black01 mt-2">
+            ชาย
+          </span>
           <input
             type="radio"
             id="female"
@@ -221,7 +262,9 @@ export default function Registerform() {
             }}
             className="ml-6 mr-2 mt-2"
           />
-          <span className="rounded-full h-6 w-6 flex items-center justify-center text-black01 mt-2">หญิง</span>
+          <span className="rounded-full h-6 w-6 flex items-center justify-center text-black01 mt-2">
+            หญิง
+          </span>
         </div>
       </div>
       <button

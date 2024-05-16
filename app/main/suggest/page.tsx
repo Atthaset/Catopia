@@ -21,7 +21,7 @@ export default function Suggest() {
 
   const getKittenData = async () => {
     try {
-      const responseKittens = await axios.get("/api//cat", {
+      const responseKittens = await axios.get("/api/cat", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -35,7 +35,7 @@ export default function Suggest() {
         }
       }
     } catch (error) {
-      //console.log("Error: ", error);
+      console.log("Error: ", error);
     }
   };
 
