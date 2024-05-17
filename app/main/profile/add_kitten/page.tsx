@@ -245,8 +245,9 @@ function AddKitten() {
             placeholder="วัน เดือน ปี เกิด"
             onTouchStart={handleTouchStart}
             onBlur={handleBlur}
-            className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${errorDate ? "border-error" : "border-textfield"
-              } focus:outline-primary`}
+            className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${
+              errorDate ? "border-error" : "border-textfield"
+            } focus:outline-primary`}
           />
           <input
             value={weight}

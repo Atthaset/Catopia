@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Headerbreeding from "./Headerbreeding";
 import Genbreeding from "./Genbreeding";
 

@@ -183,9 +183,8 @@ function EditProfile() {
 
   const [inputType, setInputType] = useState("text"); // State to manage input type
 
-  const handleTouchStart = () => {
-    setInputType("date");
-  };
+  const handleTouchStart = () => setInputType("date");
+  const handleTouchEnd = () => setInputType("text");
   return (
     <div className="container flex justify-center">
       {enablePreloader && <PreLoader />}
@@ -228,6 +227,7 @@ function EditProfile() {
             type={inputType}
             placeholder="วัน เดือน ปี เกิด"
             onTouchStart={handleTouchStart}
+            onBlur={handleTouchEnd}
             className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${errorDate ? "border-error" : "border-textfield"
               } focus:outline-primary`}
           />

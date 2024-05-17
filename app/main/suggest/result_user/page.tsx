@@ -17,7 +17,7 @@ function ResultUser() {
 
   const getResultSuggest = async () => {
     try {
-      const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/recommend/cat", {
+      const response = await axios.get("/api/recommend/cat", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, {
   MouseEvent,
@@ -14,7 +15,9 @@ interface RegisterformProps {
   setEnablePreloader: React.Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Registerform({ setEnablePreloader }: RegisterformProps) {
+export default function Registerform({
+  setEnablePreloader,
+}: RegisterformProps) {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -64,7 +67,7 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
     const isEmailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
       email
     );
-    const isDateValid = date.trim() !== "" && date !;
+    const isDateValid = date.trim() !== "" && date!;
     const isRegisUsernameValid = username.length >= 4;
     const isRegisPasswordValid = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/.test(
       password
@@ -92,7 +95,7 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       isGenderSelected
     ) {
       const res = await fetchRegisterDB();
-      //console.log('fetchRegisterDB', res);
+      // console.log('fetchRegisterDB', res);
 
       setEnablePreloader(false);
 
@@ -105,9 +108,10 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
     }
   };
 
-  async function fetchRegisterDB() {
-    //console.log('username', username);
-    //console.log('password', password);
+  //convert fetch to axios
+  const fetchRegisterDB = async () => {
+    console.log("username", username);
+    console.log("password", password);
 
     const data = {
       email,
@@ -118,14 +122,12 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       gender,
     };
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          // router.push("/");
+      const response = await axios.post("/api/auth/register", data);
+
+      console.log("response", response);
+
+      if (response.status === 201) {
+        if (response.data.success) {
           return true;
         }
         return false;
@@ -136,13 +138,13 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       console.error(error);
       return false;
     }
-  }
+  };
 
   const [inputType, setInputType] = useState("text"); // State to manage input type
 
-  const handleTouchStart = () => {
-    setInputType("date");
-  };
+  const handleTouchStart = () => setInputType("date");
+
+  const handleBlur = () => setInputType("text");
 
   return (
     <form
@@ -173,6 +175,7 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
         type={inputType}
         placeholder="วัน เดือน ปี เกิด"
         onTouchStart={handleTouchStart}
+        onBlur={handleBlur}
         className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${
           errorDate ? "border-error" : "border-textfield"
         } focus:outline-primary`}

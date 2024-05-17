@@ -50,7 +50,7 @@ export default function Genbreeding() {
 
   const prevQuestion = () => {
     if (current === 0) {
-      return;
+      setBreedingState("titlebreeding");
     } else {
       clearLastAnswer();
       setCurrent(current - 1);
@@ -60,19 +60,25 @@ export default function Genbreeding() {
 
   const nextQuestion = () => {
     setSelectChoice(""); // Clear selectChoice
-    if (current === QuestionBreeding.length - 1) {
-      setBreedingState("resultbreeding");
-      // //console.log(allSelected)
-    } else setCurrent(current + 1);
+    if (selectChoice !== "") {
+      if (current === QuestionBreeding.length - 1) {
+        setBreedingState("resultbreeding");
+        // //console.log(allSelected)
+      } else {
+        setProgressBreeding(progressBreeding + 100 / 4);
+        setCurrent(current + 1);
+      }
+    }
   };
 
-  const handleSelectChoice = async () => {
-    await setAllSelectedParent((prevAllSelected: any) => [
-      ...prevAllSelected,
-      selectChoice,
-    ]);
-    setProgressBreeding(progressBreeding + 100 / 4);
-    nextQuestion();
+  const handleSelectChoice = () => {
+    if (selectChoice !== "") {
+      setAllSelectedParent((prevAllSelected: any) => [
+        ...prevAllSelected,
+        selectChoice,
+      ]);
+      nextQuestion();
+    }
   };
 
   return (
@@ -93,7 +99,7 @@ export default function Genbreeding() {
       </div>
       <div className="flex flex-col items-start gap-4 max-h-[450px] min-h-[410px] overflow-auto">
         {current === 0
-          ? typecolorMaleList.map((choice : any, index : number) => (
+          ? typecolorMaleList.map((choice: any, index: number) => (
               <button
                 key={index}
                 value={choice}
@@ -103,9 +109,9 @@ export default function Genbreeding() {
                 }}
                 className={`flex flex-col items-start w-[364px] gap-2.5 p-4 border-black01 ${
                   choice === selectChoice
-                    ? "border-primary rounded-lg border-2 border-solid"
+                    ? "border-primary rounded-lg border-2 border-solid bg-primary text-white"
                     : "rounded-lg border-2 border-solid"
-                } hover:bg-primary hover:text-white`}
+                } `}
               >
                 <span className="text-base text-black01 not-italic font-normal leading-6">
                   {choice}
@@ -131,9 +137,9 @@ export default function Genbreeding() {
                   onClick={() => setSelectChoice(choice.color)}
                   className={`flex flex-col items-start w-[364px] gap-2.5 p-4 border-black01 ${
                     choice.color === selectChoice
-                      ? "border-primary rounded-lg border-2 border-solid"
+                      ? "border-primary rounded-lg border-2 border-solid bg-primary text-white"
                       : "rounded-lg border-2 border-solid"
-                  } hover:bg-primary hover:text-white`}
+                  }`}
                 >
                   <span className="text-base text-black01 not-italic font-normal leading-6">
                     {choice.color}
@@ -150,7 +156,7 @@ export default function Genbreeding() {
                 </button>
               ))
           : current === 2
-          ? typecolorFemaleList.map((choice : any, index : number) => (
+          ? typecolorFemaleList.map((choice: any, index: number) => (
               <button
                 key={index}
                 value={choice}
@@ -160,9 +166,9 @@ export default function Genbreeding() {
                 }}
                 className={`flex flex-col items-start w-[364px] gap-2.5 p-4 border-black01 ${
                   choice === selectChoice
-                    ? "border-primary rounded-lg border-2 border-solid"
+                    ? "border-primary rounded-lg border-2 border-solid bg-primary text-white"
                     : "rounded-lg border-2 border-solid"
-                } hover:bg-primary hover:text-white`}
+                }`}
               >
                 <span className="text-base text-black01 not-italic font-normal leading-6">
                   {choice}
@@ -188,9 +194,9 @@ export default function Genbreeding() {
                   onClick={() => setSelectChoice(choice.color)}
                   className={`flex flex-col items-start w-[364px] gap-2.5 p-4 border-black01 ${
                     choice.color === selectChoice
-                      ? "border-primary rounded-lg border-2 border-solid"
+                      ? "border-primary rounded-lg border-2 border-solid bg-primary text-white"
                       : "rounded-lg border-2 border-solid"
-                  } hover:bg-primary hover:text-white`}
+                  }`}
                 >
                   <span className="text-base text-black01 not-italic font-normal leading-6">
                     {choice.color}
