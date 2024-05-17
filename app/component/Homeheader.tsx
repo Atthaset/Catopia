@@ -26,17 +26,25 @@ export default function Homeheader({ setOpenDrawer }: any) {
   }, [learningcats]);
 
   function listCatBreed() {
-    setNewListCats(learningcats.map((cat: any) => cat.name));
+    setNewListCats(learningcats.map((cat: any) => ({
+      thai: cat.name,
+      english: cat.english_name,
+    })
+    ));
   }
 
+  // console.log("newListCats : ", newListCats);
+
   function handleSearch(e: any) {
-    if (e.target.value === "") {
+    const searchValue = e.target.value.toLowerCase();
+    if (searchValue === "") {
       setActiveSearch([]);
       return false;
     }
     setActiveSearch(
       newListCats
-        .filter((words: any) => words.includes(e.target.value))
+        .filter((words: any) => words.thai.toLowerCase().includes(searchValue) || words.english.toLowerCase().includes(searchValue))
+        .map((word: any) => word.thai)
         .slice(0, 5)
     );
   }

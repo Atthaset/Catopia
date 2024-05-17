@@ -12,6 +12,16 @@ function formatDateThai(date: string) {
   const newDate = new Date(date);
   return format(newDate, "dd MMMM yyyy", { locale: th });
 }
+function formatappointmentDate(dateString : string) {
+  const date = new Date(dateString);
+
+  const day = new Intl.DateTimeFormat('th-TH', { day: '2-digit' }).format(date);
+  const month = new Intl.DateTimeFormat('th-TH', { month: 'long' }).format(date);
+  const year = (date.getFullYear() + 543).toString().slice(-2); // Buddhist year in short format
+  const time = new Intl.DateTimeFormat('th-TH', { hour: '2-digit', minute: '2-digit' }).format(date).replace(':', '.');
+
+  return `${day} ${month} ${year}  • ${time}`;
+}
 
 function DetailTreatment({ params }: any) {
   //console.log("params: ", params);
@@ -81,6 +91,23 @@ function DetailTreatment({ params }: any) {
             {treatmentInfo.detail}
           </span>
         </div>
+        {treatmentInfo.appointmentDate && (
+          <div className="flex flex-col items-start">
+            <p className="text-center text-textfield text-xs not-italic font-normal leading-5">วันนัดหมายถัดไป</p>
+            <span className="text-center text-black01 text-base not-italic font-normal leading-6">
+              {formatappointmentDate(treatmentInfo.appointmentDate)}
+            </span>
+          </div>
+        )}
+        {treatmentInfo.appointment && (
+          <div className="flex flex-col items-start">
+            <p className="text-center text-textfield text-xs not-italic font-normal leading-5">รายละเอียดการนัดหมาย</p>
+            <span className="text-center text-black01 text-base not-italic font-normal leading-6">
+              {treatmentInfo.appointment}
+            </span>
+          </div>
+
+        )}
       </div>
       <button
         type="button"

@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center mt-40">
-      <Image src="Catlogo.svg" width={194} height={181} alt="Logo" priority={true} />
+      <Image src="/Catlogo.svg" width={194} height={181} alt="Logo" priority={true} />
       {enablePreloader && <PreLoader />}
       <Loginform setEnablePreloader={setEnablePreloader} />
       <div className="text-center">

@@ -30,6 +30,9 @@ function AddKitten() {
   const [errorWeight, setErrorWeight] = useState(false);
   const [errorBreed, setErrorBreed] = useState(false);
   const [errorGender, setErrorGender] = useState(false);
+  const [errorAggressive, setErrorAggressive] = useState(false);
+  const [errorShyness, setErrorShyness] = useState(false);
+  const [errorOpenness, setErrorOpenness] = useState(false);
   const [errorRegister, setErrorRegister] = useState("");
 
   const [newListCats, setNewListCats] = useState<any[]>([]);
@@ -42,17 +45,22 @@ function AddKitten() {
   }, [learningcats]);
 
   function listCatBreed() {
-    setNewListCats(learningcats.map((cat: any) => cat.name));
+    setNewListCats(learningcats.map((cat: any) => ({
+      thai: cat.name,
+      english: cat.english_name,
+    })));
   }
 
   function handleSearch(e: any) {
-    if (e.target.value === "") {
+    const searchValue = e.target.value.toLowerCase();
+    if (searchValue === "") {
       setActiveSearch([]);
       return false;
     }
     setActiveSearch(
       newListCats
-        .filter((words: any) => words.includes(e.target.value))
+        .filter((words: any) => words.thai.toLowerCase().includes(searchValue) || words.english.toLowerCase().includes(searchValue))
+        .map((word: any) => word.thai)
         .slice(0, 5)
     );
   }
@@ -79,9 +87,12 @@ function AddKitten() {
 
     const isDateValid = date.trim() !== "";
     const isRegisUsernameValid = username.length >= 4;
-    const isWeight = weight !== 0;
-    const isBreed = breed.trim() !== "";
+    const isWeight = weight !== 0 && !Number.isNaN(weight) && weight !== undefined;
+    const isBreed = newListCats.some((cat) => cat.thai === breed);
     const isGenderSelected = !!gender;
+    const isAggressive = aggressive !== 0;
+    const isShyness = shyness !== 0;
+    const isOpenness = openness !== 0;
 
     const resultFile = await postFile();
     const resultPost = await postKitten(resultFile);
@@ -93,6 +104,9 @@ function AddKitten() {
     setErrorWeight(!isWeight);
     setErrorBreed(!isBreed);
     setErrorGender(!isGenderSelected);
+    setErrorAggressive(!isAggressive);
+    setErrorShyness(!isShyness);
+    setErrorOpenness(!isOpenness);
 
     if (
       isDateValid &&
@@ -100,6 +114,9 @@ function AddKitten() {
       isWeight &&
       isBreed &&
       isGenderSelected &&
+      isAggressive &&
+      isShyness &&
+      isOpenness &&
       resultPost
     ) {
       //
@@ -171,9 +188,9 @@ function AddKitten() {
 
   const [inputType, setInputType] = useState("text"); // State to manage input type
 
-  const handleTouchStart = () => {
-    setInputType("date");
-  };
+  const handleTouchStart = () => setInputType("date");
+
+  const handleBlur = () => setInputType("text");
 
   return (
     <div className="container flex justify-center">
@@ -215,9 +232,8 @@ function AddKitten() {
             }}
             type="text"
             placeholder={`ชื่อ`}
-            className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${
-              errorRegisUsername ? "border-error" : "border-textfield"
-            } focus:outline-primary`}
+            className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${errorRegisUsername ? "border-error" : "border-textfield"
+              } focus:outline-primary`}
           />
           <input
             value={date}
@@ -228,9 +244,9 @@ function AddKitten() {
             type={inputType}
             placeholder="วัน เดือน ปี เกิด"
             onTouchStart={handleTouchStart}
-            className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${
-              errorDate ? "border-error" : "border-textfield"
-            } focus:outline-primary`}
+            onBlur={handleBlur}
+            className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${errorDate ? "border-error" : "border-textfield"
+              } focus:outline-primary`}
           />
           <input
             value={weight}
@@ -240,9 +256,8 @@ function AddKitten() {
             }}
             type="number"
             placeholder={`น้ำหนัก (กก.)`}
-            className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${
-              errorWeight ? "border-error" : "border-textfield"
-            } focus:outline-primary`}
+            className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${errorWeight ? "border-error" : "border-textfield"
+              } focus:outline-primary`}
           />
           <div className="flex items-start relative w-full">
             <input
@@ -254,9 +269,8 @@ function AddKitten() {
               }}
               type="text"
               placeholder={`พันธุ์แมว`}
-              className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${
-                errorBreed ? "border-error" : "border-textfield"
-              } focus:outline-primary`}
+              className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${errorBreed ? "border-error" : "border-textfield"
+                } focus:outline-primary`}
             />
             {activeSearch.length > 0 && (
               <div className="flex flex-col gap-4 absolute top-12 p-4 z-30 bg-white text-black01 border-b-2 border-l-2 border-r-2 w-full rounded left-1/2 -translate-x-1/2 ">
@@ -312,7 +326,7 @@ function AddKitten() {
           <div className="flex flex-col items-start gap-8 w-full">
             <div className="flex flex-col gap-2 w-full">
               <div className="flex items-start gap-2">
-                <span className=" text-black01 text-base not-italic font-normal leading-6">
+                <span className={`${errorAggressive ? 'text-error' : 'text-black01'} text-base not-italic font-normal leading-6`}>
                   ความก้าวร้าว
                 </span>
                 <span className=" text-primary text-base not-italic font-bold leading-6">
@@ -334,13 +348,12 @@ function AddKitten() {
                 <div
                   className="absolute z-10 top-0 left-0 h-2 rounded-xl bg-primary"
                   style={{
-                    width: `calc(${aggressive * 10}% ${
-                      aggressive === 10
-                        ? "- 3px"
-                        : aggressive === 1
+                    width: `calc(${aggressive * 10}% ${aggressive === 10
+                      ? "- 3px"
+                      : aggressive === 1
                         ? "+ 3px"
                         : ""
-                    })`,
+                      })`,
                   }}
                 />
                 <input
@@ -349,7 +362,10 @@ function AddKitten() {
                   max={10}
                   step={1}
                   value={aggressive}
-                  onChange={(e) => setAggressive(e.target.valueAsNumber)}
+                  onChange={(e) => {
+                    setAggressive(e.target.valueAsNumber);
+                    setErrorAggressive(false);
+                  }}
                   list="tickmarks"
                   className="absolute h-2 rounded-xl z-10 appearance-none outline-none bg-transparent w-full"
                   style={{
@@ -360,7 +376,7 @@ function AddKitten() {
             </div>
             <div className="flex flex-col gap-2 w-full">
               <div className="flex items-start gap-2">
-                <span className=" text-black01 text-base not-italic font-normal leading-6">
+                <span className={`${errorShyness ? 'text-error' : 'text-black01'} text-base not-italic font-normal leading-6`}>
                   ความเขินอาย
                 </span>
                 <span className=" text-primary text-base not-italic font-bold leading-6">
@@ -382,9 +398,8 @@ function AddKitten() {
                 <div
                   className="absolute z-10 top-0 left-0 h-2 rounded-xl bg-primary"
                   style={{
-                    width: `calc(${shyness * 10}% ${
-                      shyness === 10 ? "- 3px" : shyness === 1 ? "+ 3px" : ""
-                    })`,
+                    width: `calc(${shyness * 10}% ${shyness === 10 ? "- 3px" : shyness === 1 ? "+ 3px" : ""
+                      })`,
                   }}
                 />
                 <input
@@ -393,7 +408,10 @@ function AddKitten() {
                   max={10}
                   step={1}
                   value={shyness}
-                  onChange={(e) => setShyness(e.target.valueAsNumber)}
+                  onChange={(e) => {
+                    setShyness(e.target.valueAsNumber);
+                    setErrorShyness(false);
+                  }}
                   list="tickmarks"
                   className="absolute h-2 rounded-xl z-10 appearance-none outline-none bg-transparent w-full"
                   style={{
@@ -404,7 +422,7 @@ function AddKitten() {
             </div>
             <div className="flex flex-col w-full gap-2">
               <div className="flex items-start gap-2">
-                <span className=" text-black01 text-base not-italic font-normal leading-6">
+                <span className={`${errorOpenness ? 'text-error' : 'text-black01'} text-base not-italic font-normal leading-6`}>
                   ความสนใจต่อสิ่งภายนอก
                 </span>
                 <span className=" text-primary text-base not-italic font-bold leading-6">
@@ -426,9 +444,8 @@ function AddKitten() {
                 <div
                   className="absolute z-10 top-0 left-0 h-2 rounded-xl bg-primary"
                   style={{
-                    width: `calc(${openness * 10}% ${
-                      openness === 10 ? "- 3px" : openness === 1 ? "+ 3px" : ""
-                    })`,
+                    width: `calc(${openness * 10}% ${openness === 10 ? "- 3px" : openness === 1 ? "+ 3px" : ""
+                      })`,
                   }}
                 />
                 <input
@@ -437,7 +454,10 @@ function AddKitten() {
                   max={10}
                   step={1}
                   value={openness}
-                  onChange={(e) => setOpenness(e.target.valueAsNumber)}
+                  onChange={(e) => {
+                    setOpenness(e.target.valueAsNumber);
+                    setErrorOpenness(false);
+                  }}
                   list="tickmarks"
                   className="absolute h-2 rounded-xl z-10 appearance-none outline-none bg-transparent w-full"
                   style={{

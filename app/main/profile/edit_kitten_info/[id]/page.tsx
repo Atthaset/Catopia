@@ -31,6 +31,9 @@ function EditKittenInfo({ params }: any) {
   const [errorWeight, setErrorWeight] = useState(false);
   const [errorBreed, setErrorBreed] = useState(false);
   const [errorGender, setErrorGender] = useState(false);
+  const [errorAggressive, setErrorAggressive] = useState(false);
+  const [errorShyness, setErrorShyness] = useState(false);
+  const [errorOpenness, setErrorOpenness] = useState(false);
   const [errorRegister, setErrorRegister] = useState("");
 
   const [newListCats, setNewListCats] = useState<any[]>([]);
@@ -43,15 +46,22 @@ function EditKittenInfo({ params }: any) {
   }, [learningcats]);
 
   function listCatBreed() {
-    setNewListCats(learningcats.map((cat: any) => cat.name));
+    setNewListCats(learningcats.map((cat: any) => ({
+      thai: cat.name,
+      english: cat.english_name
+    })
+    ));
   }
 
   function handleSearch(e: any) {
-    if (e.target.value === "") {
+    const searchValue = e.target.value.toLowerCase();
+    if (searchValue === "") {
       setActiveSearch([]);
       return false;
     }
-    setActiveSearch(newListCats.filter((words: any) => words.includes(e.target.value)).slice(0, 5));
+    setActiveSearch(newListCats.filter((words: any) => words.thai.toLowerCase().includes(searchValue) || words.english.toLowerCase().includes(searchValue))
+      .map((word: any) => word.thai)
+      .slice(0, 5));
   }
 
   const selectSearch = (cat: string) => {
@@ -104,9 +114,13 @@ function EditKittenInfo({ params }: any) {
 
     const isDateValid = date.trim() !== "";
     const isRegisUsernameValid = username.length >= 4;
-    const isWeight = weight !== 0;
-    const isBreed = breed.trim() !== "";
+    const isWeight = weight !== 0 && !Number.isNaN(weight) && weight !== undefined;
+    const isBreed = newListCats.find((cat: any) => cat.thai === breed);
     const isGenderSelected = !!gender;
+    const isAggressive = aggressive !== 0;
+    const isShyness = shyness !== 0;
+    const isOpenness = openness !== 0;
+
     const resultFile = await postFile();
     const resultPost = await putKitten(resultFile);
 
@@ -117,8 +131,19 @@ function EditKittenInfo({ params }: any) {
     setErrorWeight(!isWeight);
     setErrorBreed(!isBreed);
     setErrorGender(!isGenderSelected);
+    setErrorAggressive(!isAggressive);
+    setErrorShyness(!isShyness);
+    setErrorOpenness(!isOpenness);
 
-    if (isDateValid && isRegisUsernameValid && isWeight && isBreed && isGenderSelected && resultPost) {
+    if (isDateValid &&
+      isRegisUsernameValid &&
+      isWeight &&
+      isBreed &&
+      isGenderSelected &&
+      isAggressive &&
+      isShyness &&
+      isOpenness &&
+      resultPost) {
       //
       router.push("/main/profile");
     } else {
@@ -188,9 +213,9 @@ function EditKittenInfo({ params }: any) {
 
   const [inputType, setInputType] = useState("text"); // State to manage input type
 
-  const handleTouchStart = () => {
-    setInputType("date");
-  };
+  const handleTouchStart = () => setInputType("date");
+
+  const handleBlur = () => setInputType("text");
 
   return (
     <div className="container flex justify-center">
@@ -233,6 +258,7 @@ function EditKittenInfo({ params }: any) {
             type={inputType}
             placeholder="วัน เดือน ปี เกิด"
             onTouchStart={handleTouchStart}
+            onBlur={handleBlur}
             className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${errorDate ? "border-error" : "border-textfield"
               } focus:outline-primary`}
           />
@@ -309,7 +335,9 @@ function EditKittenInfo({ params }: any) {
           <div className="flex flex-col items-start gap-8 w-full">
             <div className="flex flex-col gap-2 w-full">
               <div className="flex items-start gap-2">
-                <span className=" text-black01 text-base not-italic font-normal leading-6">ความก้าวร้าว</span>
+                <span className={`${errorAggressive ? 'text-error' : 'text-black01'} text-base not-italic font-normal leading-6`}>
+                  ความก้าวร้าว
+                </span>
                 <span className=" text-primary text-base not-italic font-bold leading-6">(0-10)</span>
               </div>
               <div className="relative flex">
@@ -330,7 +358,10 @@ function EditKittenInfo({ params }: any) {
                   max={10}
                   step={1}
                   value={aggressive}
-                  onChange={(e) => setAggressive(e.target.valueAsNumber)}
+                  onChange={(e) => [
+                    setAggressive(e.target.valueAsNumber),
+                    setErrorAggressive(false),
+                  ]}
                   list="tickmarks"
                   className="absolute h-2 rounded-xl z-10 appearance-none outline-none bg-transparent w-full"
                   style={{
@@ -341,7 +372,9 @@ function EditKittenInfo({ params }: any) {
             </div>
             <div className="flex flex-col gap-2 w-full">
               <div className="flex items-start gap-2">
-                <span className=" text-black01 text-base not-italic font-normal leading-6">ความเขินอาย</span>
+                <span className={`${errorShyness ? 'text-error' : 'text-black01'} text-base not-italic font-normal leading-6`}>
+                  ความเขินอาย
+                </span>
                 <span className=" text-primary text-base not-italic font-bold leading-6">(0-10)</span>
               </div>
               <div className="relative">
@@ -362,7 +395,10 @@ function EditKittenInfo({ params }: any) {
                   max={10}
                   step={1}
                   value={shyness}
-                  onChange={(e) => setShyness(e.target.valueAsNumber)}
+                  onChange={(e) => {
+                    setShyness(e.target.valueAsNumber);
+                    setErrorShyness(false);
+                  }}
                   list="tickmarks"
                   className="absolute h-2 rounded-xl z-10 appearance-none outline-none bg-transparent w-full"
                   style={{
@@ -373,7 +409,9 @@ function EditKittenInfo({ params }: any) {
             </div>
             <div className="flex flex-col w-full gap-2">
               <div className="flex items-start gap-2">
-                <span className=" text-black01 text-base not-italic font-normal leading-6">ความสนใจต่อสิ่งภายนอก</span>
+                <span className={`${errorOpenness ? 'text-error' : 'text-black01'} text-base not-italic font-normal leading-6`}>
+                  ความสนใจต่อสิ่งภายนอก
+                </span>
                 <span className=" text-primary text-base not-italic font-bold leading-6">(0-10)</span>
               </div>
               <div className="relative">
@@ -394,7 +432,10 @@ function EditKittenInfo({ params }: any) {
                   max={10}
                   step={1}
                   value={openness}
-                  onChange={(e) => setOpenness(e.target.valueAsNumber)}
+                  onChange={(e) => {
+                    setOpenness(e.target.valueAsNumber);
+                    setErrorOpenness(false);
+                  }}
                   list="tickmarks"
                   className="absolute h-2 rounded-xl z-10 appearance-none outline-none bg-transparent w-full"
                   style={{
