@@ -35,13 +35,22 @@ export default function Genquestion({ progress, setProgress }: any) {
 
   const nextQuestion = () => {
     setSelectChoice(-1); // Clear selectChoice
-    if (current < QuestionData.length - 1) setCurrent(current + 1);
+    if (selectChoice !== -1) {
+      if (current < QuestionData.length - 1) {
+        setCurrent(current + 1);
+        setProgress(progress + 100 / 7);
+      }
+    }
   };
 
   const handleSelectChoice = () => {
-    setAllSelected((prevAllSelected): any => [...prevAllSelected, selectChoice]);
-    setProgress(progress + 100 / 7);
-    nextQuestion();
+    if (selectChoice !== -1) {
+      setAllSelected((prevAllSelected): any => [
+        ...prevAllSelected,
+        selectChoice,
+      ]);
+      nextQuestion();
+    }
   };
 
   const handleSentAnswer = async () => {
@@ -70,11 +79,15 @@ export default function Genquestion({ progress, setProgress }: any) {
 
   return (
     <div className="flex flex-col items-start gap-4 mt-4">
-      <button onClick={prevQuestion}>
+      {current !== 0 && (
+        <button onClick={prevQuestion}>
         <img src="/ArrowLeft.svg" alt="Back" />
       </button>
+      )}
       <div className="w-[364px]">
-        <span className="text-black01 text-2xl not-italic font-bold leading-10">{QuestionData[current].question}</span>
+        <span className="text-black01 text-2xl not-italic font-bold leading-10">
+          {QuestionData[current].question}
+        </span>
       </div>
       <div className="flex flex-col items-start gap-4 max-h-[450px] overflow-auto">
         {QuestionData[current].choices.map((choice: any, index: number) => (
@@ -89,7 +102,11 @@ export default function Genquestion({ progress, setProgress }: any) {
           >
             <span>{choice}</span>
             {index === selectChoice && (
-              <img src="/Check.svg" alt="Check" style={{ marginRight: "5px", alignSelf: "center" }} />
+              <img
+                src="/Check.svg"
+                alt="Check"
+                style={{ marginRight: "5px", alignSelf: "center" }}
+              />
             )}
           </button>
         ))}

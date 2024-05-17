@@ -15,7 +15,9 @@ interface RegisterformProps {
   setEnablePreloader: React.Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Registerform({ setEnablePreloader }: RegisterformProps) {
+export default function Registerform({
+  setEnablePreloader,
+}: RegisterformProps) {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -65,7 +67,7 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
     const isEmailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
       email
     );
-    const isDateValid = date.trim() !== "" && date !;
+    const isDateValid = date.trim() !== "" && date!;
     const isRegisUsernameValid = username.length >= 4;
     const isRegisPasswordValid = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/.test(
       password
@@ -93,7 +95,7 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       isGenderSelected
     ) {
       const res = await fetchRegisterDB();
-      console.log('fetchRegisterDB', res);
+      // console.log('fetchRegisterDB', res);
 
       setEnablePreloader(false);
 
@@ -108,8 +110,8 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
 
   //convert fetch to axios
   const fetchRegisterDB = async () => {
-    console.log('username', username);
-    console.log('password', password);
+    console.log("username", username);
+    console.log("password", password);
 
     const data = {
       email,
@@ -118,12 +120,12 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       password,
       confirmPassword,
       gender,
-    }
+    };
     try {
       const response = await axios.post("/api/auth/register", data);
 
-      console.log('response', response);
-      
+      console.log("response", response);
+
       if (response.status === 201) {
         if (response.data.success) {
           return true;
@@ -136,13 +138,13 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
       console.error(error);
       return false;
     }
-  }
+  };
 
   const [inputType, setInputType] = useState("text"); // State to manage input type
 
-  const handleTouchStart = () => {
-    setInputType("date");
-  };
+  const handleTouchStart = () => setInputType("date");
+
+  const handleBlur = () => setInputType("text");
 
   return (
     <form
@@ -160,8 +162,9 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
         }}
         type="text"
         placeholder="อีเมล"
-        className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${errorEmail ? "border-error" : "border-textfield"
-          } focus:outline-primary`}
+        className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${
+          errorEmail ? "border-error" : "border-textfield"
+        } focus:outline-primary`}
       />
       <input
         value={date}
@@ -172,8 +175,10 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
         type={inputType}
         placeholder="วัน เดือน ปี เกิด"
         onTouchStart={handleTouchStart}
-        className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${errorDate ? "border-error" : "border-textfield"
-          } focus:outline-primary`}
+        onBlur={handleBlur}
+        className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded ${
+          errorDate ? "border-error" : "border-textfield"
+        } focus:outline-primary`}
       />
       <input
         value={username}
@@ -183,8 +188,9 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
         }}
         type="text"
         placeholder="ชื่อผู้ใช้งาน"
-        className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${errorRegisUsername ? "border-error" : "border-textfield"
-          } focus:outline-primary`}
+        className={`flex w-[364px] h-10 flex-col items-start text-base not-italic font-normal leading-6 pl-2 border rounded ${
+          errorRegisUsername ? "border-error" : "border-textfield"
+        } focus:outline-primary`}
       />
       <div className="flex items-start relative">
         <input
@@ -195,8 +201,9 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
           }}
           type={passwordVisible ? "text" : "password"}
           placeholder="รหัสผ่าน"
-          className={`items-start pr-10 py-0 flex w-[364px] h-10 text-base not-italic font-normal leading-6 pl-2 border rounded ${errorRegisPassword ? "border-error" : "border-textfield"
-            } focus:outline-primary`}
+          className={`items-start pr-10 py-0 flex w-[364px] h-10 text-base not-italic font-normal leading-6 pl-2 border rounded ${
+            errorRegisPassword ? "border-error" : "border-textfield"
+          } focus:outline-primary`}
         />
         <button
           className="absolute right-0 top-0 h-full px-2 border-[none] rounded border-textfield focus:outline-primary flex items-center"
@@ -217,8 +224,9 @@ export default function Registerform({ setEnablePreloader }: RegisterformProps) 
           }}
           type={confirmPasswordVisible ? "text" : "password"}
           placeholder="ยืนยันรหัสผ่าน"
-          className={`items-start pr-10 py-0 flex w-[364px] h-10 text-base not-italic font-normal leading-6 pl-2 border rounded ${errorRegisConfirmPassword ? "border-error" : "border-textfield"
-            } focus:outline-primary`}
+          className={`items-start pr-10 py-0 flex w-[364px] h-10 text-base not-italic font-normal leading-6 pl-2 border rounded ${
+            errorRegisConfirmPassword ? "border-error" : "border-textfield"
+          } focus:outline-primary`}
         />
         <button
           className="absolute right-0 top-0 h-full px-2 border-[none] rounded border-textfield focus:outline-primary flex items-center"

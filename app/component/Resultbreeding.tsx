@@ -1,13 +1,9 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-// import { ActiveContext } from "@/app/main/layout";
 import Image from "next/image";
-// import DataKitten from "@/public/dataKitten.json";
 import DataKitten from '../file/dataKitten.json';
-// import Catparent from "@/public/catparent.json";
 import Catparent from '../file/catparent.json';
-// import Homeinterest from "./Homeinterest";
 import { useRouter } from "next/navigation";
 import { BreedingContext } from "../store/breeding";
 import { ActiveContext } from "../store/context";
@@ -60,6 +56,9 @@ export default function Resultbreeding() {
 
     //console.log("father_id :", getFather_id[0].id);
     //console.log("mother_id :", getMother_id[0].id);
+
+    console.log("getFather_id: ", getFather_id);
+    
 
     //show kitten
     const getKitten = DataKitten.filter(
@@ -152,7 +151,6 @@ export default function Resultbreeding() {
               </p>
             </div>
           </div>
-          {/* <Homeinterest /> */}
           <div className="flex flex-col justify-center items-start gap-4 mt-6">
             <button
               onClick={refreshQuestion}
@@ -289,7 +287,6 @@ export default function Resultbreeding() {
           </div>
           <div className="flex flex-col items-center absolute gap-6 top-[115px] w-full h-full rounded-t-2xl bg-white">
             <div className="flex mt-[320px]">
-              {/* <Homeinterest /> */}
             </div>
             <div className="flex flex-col justify-center items-start gap-4">
               <button
