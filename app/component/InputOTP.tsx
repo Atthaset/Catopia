@@ -180,7 +180,7 @@ export default function InputOTP() {
         />
       </div>
       <button className="flex w-[364px] justify-center items-center gap-2.5 mt-4 px-4 py-2 bg-primary text-white border rounded-lg border-solid text-base not-italic font-normal leading-6">
-        รีเซ็ทรหัสผ่าน
+        รีเซ็ตรหัสผ่าน
       </button>
       <span
         className="flex text-center items-center justify-center text-xs not-italic font-normal mt-4  leading-5 text-error"

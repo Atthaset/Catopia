@@ -90,7 +90,7 @@ function Catslist({ kittensData }: any) {
               alt="No have kitten"
             />
             <h2 className="text-black01 text-center text-base not-italic font-bold leading-6">
-              คุณไม่เคยมีโปรไฟลแมว
+              คุณไม่เคยมีโปรไฟล์แมว
             </h2>
           </div>
           <Link href="/main/profile/add_kitten">
