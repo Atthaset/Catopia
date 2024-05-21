@@ -67,8 +67,14 @@ export default function Profile() {
         zIndex: 0,
       }}
     >
-      <button type="button" onClick={logout} className="flex justify-end w-[364px] right-0 mt-12">
-        <p className="text-error text-base not-italic font-normal leading-6">Logout</p>
+      <button
+        type="button"
+        onClick={logout}
+        className="flex justify-end w-[364px] right-0 mt-8"
+      >
+        <p className="text-error text-base not-italic font-normal leading-6">
+          Logout
+        </p>
       </button>
       <div className="flex flex-col w-[364px] justify-center items-center gap-8 mt-2">
         <Yourprofile userData={userData} />

@@ -53,7 +53,7 @@ function DetailTreatment({ params }: any) {
   console.log("treatmentInfo: ", treatmentInfo);
 
   return (
-    <div className="container mx-auto flex flex-col items-start gap-6 mt-12 pl-8 pr-8">
+    <div className="container mx-auto flex flex-col items-start gap-6 mt-8 pl-8 pr-8">
       <button type="button" onClick={() => router.push(`/main/profile/kitten_info/${params.catID}`)}>
         <Image src="/ArrowLeft.svg" width={24} height={24} alt="arrow-left" />
       </button>

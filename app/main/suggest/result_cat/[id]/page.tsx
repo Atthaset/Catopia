@@ -54,7 +54,7 @@ function ResultCat({ params }: any) {
         zIndex: 0,
       }}
     >
-      <div className="inline-flex flex-col items-center mt-14">
+      <div className="inline-flex flex-col items-center mt-8">
         <h1 className="text-center text-2xl text-black01 not-italic font-semibold leading-8">ลักษณะพันธุ์แมว</h1>
         <h3 className="text-center text-base text-primary not-italic font-semibold leading-6">
           ที่เหมาะสมกับแมวของคุณ

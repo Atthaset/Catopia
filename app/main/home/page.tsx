@@ -40,7 +40,7 @@ export default function Home() {
   // console.log("suggestData : ", suggestData);
 
   return (
-    <div className="flex flex-col items-start gap-4 mx-8 my-12">
+    <div className="flex flex-col items-start gap-4 mx-8 pb-24 mt-2">
       <Homeheader setOpenDrawer={setOpenDrawer} />
       <Homerecommand />
       <Homeinterest suggestData={suggestData} />

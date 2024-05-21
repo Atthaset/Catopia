@@ -161,7 +161,7 @@ function EditTreatment({ params }: any) {
   return (
     <div className="container flex justify-center">
       {enablePreloader && <PreLoader />}
-      <div className="flex flex-col justify-center items-start gap-8 mt-20 w-[364px]">
+      <div className="flex flex-col justify-center items-start gap-8 mt-8 w-[364px]">
         <button type="button" onClick={() => router.push(`/main/profile/kitten_info/${params.catID}`)}>
           <Image src="/ArrowLeft.svg" width={24} height={24} alt="arrow-left" />
         </button>
@@ -294,7 +294,7 @@ function EditTreatment({ params }: any) {
               onBlur={handleBlurAppointment}
               className={`w-[364px] h-10 text-base text-black01 not-italic font-normal leading-6 pl-2 pr-2 border rounded border-textfield focus:outline-primary`}
             />
-            {appointment.trim() === "" && inputTypeForAppointment === "text" && (
+            {appointment === null && inputTypeForAppointment === "text" && (
               <label
                 htmlFor="appointment"
                 className={`absolute pointer-events-none left-2 top-2 text-base not-italic font-normal leading-6 text-textfield`}

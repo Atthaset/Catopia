@@ -21,8 +21,8 @@ export default function Nav() {
   }, []);
 
   return (
-    <div className=" flex w-full h-[104px] items-center justify-center shrink-0 fixed left-0 bottom-0 z-50 bg-white border-t-2 border-line">
-      <div className="flex w-[364px] h-auto justify-between pl-6 pr-6 ">
+    <div className=" flex w-full h-[80px] items-center justify-center shrink-0 fixed left-0 bottom-0 z-50 bg-white border-t-2 border-line">
+      <div className="flex w-full  justify-between items-center pl-11 pr-11 ">
         <Link href="/main/home">
           <button
             onClick={() => handleActive("home")}
@@ -30,8 +30,8 @@ export default function Nav() {
           >
             <Image
               src={`${active === "home" ? "/Home-active" : "/Home"}.svg`}
-              width={28}
-              height={28}
+              width={20}
+              height={20}
               alt="Home page"
               style={{ width: "auto", height: "auto" }}
             />
@@ -53,8 +53,8 @@ export default function Nav() {
               src={`${
                 active === "breeding" ? "/Breeding-active" : "/Breeding"
               }.svg`}
-              width={28}
-              height={28}
+              width={20}
+              height={20}
               alt="Breeding page"
               style={{ width: "auto", height: "auto" }}
             />
@@ -76,8 +76,8 @@ export default function Nav() {
               src={`${
                 active === "suggest" ? "/Suggest-active" : "/Suggest"
               }.svg`}
-              width={28}
-              height={28}
+              width={20}
+              height={20}
               alt="Suggest page"
               style={{ width: "auto", height: "auto" }}
             />
@@ -99,8 +99,8 @@ export default function Nav() {
               src={`${
                 active === "profile" ? "/Profile-active" : "/Profile"
               }.svg`}
-              width={28}
-              height={28}
+              width={20}
+              height={20}
               alt="Profile page"
               style={{ width: "auto", height: "auto" }}
             />

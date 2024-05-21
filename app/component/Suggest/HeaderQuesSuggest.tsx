@@ -4,7 +4,7 @@ import React from 'react'
 
 function HeaderQuesSuggest({ progress }: any) {
   return (
-    <div className="flex justify-center container mx-auto mt-12 mb-10">
+    <div className="flex justify-center container mx-auto mt-6 mb-6">
       <div className="progress w-[364px] bg-line h-2 rounded-full">
         <div
           className="progress-bar bg-primary h-2 rounded-full"

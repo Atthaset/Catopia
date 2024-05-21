@@ -13,7 +13,7 @@ function SelectYourKitten() {
   //console.log("kittenData: ", kittenData);
 
   return (
-    <div className=" container mx-auto flex flex-col items-start gap-4 pl-8 pr-8 mt-12">
+    <div className=" container mx-auto flex flex-col items-start gap-4 pl-8 pr-8 mt-8">
       <button onClick={() => setQuestionState("selectionPattern")}>
         <Image src="/ArrowLeft.svg" width={24} height={24} alt="ArrowLeft" />
       </button>

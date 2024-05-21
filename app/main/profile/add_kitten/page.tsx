@@ -195,7 +195,7 @@ function AddKitten() {
   return (
     <div className="container flex justify-center">
       {enablePreloader && <PreLoader />}
-      <div className="flex flex-col justify-center items-start gap-8 mt-20 w-[364px]">
+      <div className="flex flex-col justify-center items-start gap-8 mt-8 w-[364px]">
         <button type="button" onClick={() => router.push("/main/profile")}>
           <Image src="/ArrowLeft.svg" width={24} height={24} alt="arrow-left" />
         </button>

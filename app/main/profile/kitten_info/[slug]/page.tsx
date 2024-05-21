@@ -17,7 +17,7 @@ function KittenInfo({params}: any) {
         zIndex: 0,
       }}
     >
-      <div className="flex w-[364px]  mt-12">
+      <div className="flex w-[364px] mt-8">
         <Link href="/main/profile">
           <Image src="/ArrowLeft.svg" width={24} height={24} alt="arrow-left" />
         </Link>

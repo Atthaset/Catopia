@@ -1,12 +1,12 @@
 "use client";
 
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import axios from "axios";
+
 import PreLoader from "@/app/component/Loader/PreLoader";
 import learningcats from "@/app/file/learningcats.json";
-
-import axios from "axios";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 
 function EditKittenInfo({ params }: any) {
   // //console.log("params: ", params);
@@ -220,7 +220,7 @@ function EditKittenInfo({ params }: any) {
   return (
     <div className="container flex justify-center">
       {enablePreloader && <PreLoader />}
-      <div className="flex flex-col justify-center items-start gap-8 mt-20 w-[364px]">
+      <div className="flex flex-col justify-center items-start gap-8 mt-8 w-[364px]">
         <button type="button" onClick={() => router.push(`/main/profile/kitten_info/${params.id}`)}>
           <Image src="/ArrowLeft.svg" width={24} height={24} alt="arrow-left" />
         </button>
