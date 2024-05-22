@@ -127,7 +127,7 @@ function AddTreatment({ params }: any) {
   const handleBlurAppointment = () => setInputTypeForAppointment("text");
 
   return (
-    <div className="container flex justify-center">
+    <div className="container flex justify-center pb-12">
       {enablePreloader && <PreLoader />}
       <div className="flex flex-col justify-center items-start gap-8 mt-8 w-[364px]">
         <button type="button" onClick={() => router.push(`/main/profile/kitten_info/${params.id}`)}>

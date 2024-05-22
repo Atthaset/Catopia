@@ -8,7 +8,7 @@ import Treatment from "@/app/component/Kitten_info/Treatment";
 function KittenInfo({params}: any) {
   return (
     <div
-      className=" flex flex-col items-center w-screen h-screen"
+      className=" flex flex-col items-center w-screen h-screen pb-24"
       style={{
         backgroundImage: "url('/Moon.svg')",
         backgroundRepeat: "no-repeat",

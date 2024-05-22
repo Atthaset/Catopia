@@ -193,7 +193,7 @@ function AddKitten() {
   const handleBlur = () => setInputType("text");
 
   return (
-    <div className="container flex justify-center">
+    <div className="container flex justify-center pb-24">
       {enablePreloader && <PreLoader />}
       <div className="flex flex-col justify-center items-start gap-8 mt-8 w-[364px]">
         <button type="button" onClick={() => router.push("/main/profile")}>

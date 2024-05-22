@@ -288,7 +288,7 @@ export default function Resultbreeding() {
           <div className="flex flex-col items-center absolute gap-6 top-[115px] w-full h-full rounded-t-2xl bg-white">
             <div className="flex mt-[320px]">
             </div>
-            <div className="flex flex-col justify-center items-start gap-4">
+            <div className="flex flex-col justify-center items-start gap-4 pb-12">
               <button
                 onClick={refreshQuestion}
                 type="button"

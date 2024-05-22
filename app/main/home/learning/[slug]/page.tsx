@@ -45,7 +45,7 @@ export default function Learning({ params }: any): JSX.Element {
 
   return (
     <div className="flex flex-col items-center min-h-screen">
-      <div className="flex flex-col justify-center items-start w-[364px] mt-12 gap-4">
+      <div className="flex flex-col justify-center items-start w-[364px] mt-6 gap-4">
         <button onClick={blackToHomePage}>
           <img src="/ArrowLeft.svg" alt="Back" />
         </button>

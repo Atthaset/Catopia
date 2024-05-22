@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 function EditTreatment({ params }: any) {
-  //   //console.log("EditTreatment_catID : ", params.catID);
-  //   //console.log("EditTreatment_id : ", params.id);
+  //console.log("EditTreatment_catID : ", params.catID);
+  //console.log("EditTreatment_id : ", params.id);
 
   const router = useRouter();
 
@@ -159,7 +159,7 @@ function EditTreatment({ params }: any) {
   const handleBlurAppointment = () => setInputTypeForAppointment("text");
 
   return (
-    <div className="container flex justify-center">
+    <div className="container flex justify-center pb-12">
       {enablePreloader && <PreLoader />}
       <div className="flex flex-col justify-center items-start gap-8 mt-8 w-[364px]">
         <button type="button" onClick={() => router.push(`/main/profile/kitten_info/${params.catID}`)}>

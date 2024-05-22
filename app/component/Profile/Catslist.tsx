@@ -31,7 +31,7 @@ function Catslist({ kittensData }: any) {
     <>
       {haveKitten && (
         <div className="container flex flex-col items-center justify-center gap-8">
-          <div className="container flex flex-col">
+          <div className="container flex flex-col max-h-[250px] overflow-auto">
             {kittensData.data?.map((kitten: any) => (
               <div
                 key={kitten.id}

@@ -74,7 +74,7 @@ function Treatment({ params }: any) {
                 <p className="text-primary text-center text-base not-italic font-normal leading-6">เพิ่มการรักษา</p>
               </button>
             </Link>
-            <div className="flex flex-col max-h-80 overflow-auto">
+            <div className="flex flex-col max-h-[260px] overflow-auto">
               {treatmentInfo.map((treatment: any, index: any) => (
                 <div key={index} className="flex w-[364px] p-4 justify-between items-start">
                   <div className="flex flex-col items-start">

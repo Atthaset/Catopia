@@ -97,7 +97,7 @@ export default function Genbreeding() {
           {QuestionBreeding[current].questionTail}
         </span>
       </div>
-      <div className="flex flex-col items-start gap-4 max-h-[450px] min-h-[410px] overflow-auto">
+      <div className="flex flex-col items-start gap-4 max-h-[320px] overflow-auto border border-solid border-red-500">
         {current === 0
           ? typecolorMaleList.map((choice: any, index: number) => (
               <button

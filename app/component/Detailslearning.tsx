@@ -86,9 +86,9 @@ export default function Detailslearning({ currentCat }: any) {
           </span>
         </button>
       </div>
-      <div className="flex overflow-auto">
+      <div className="flex pb-24 border border-solid border-red-600">
         {currentTab === "nature" && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 overflow-auto">
             {currentCat.description?.map((desc: string, index: number) => (
               <p
                 className="text-textfield text-base not-italic font-normal leading-6"
@@ -111,7 +111,7 @@ export default function Detailslearning({ currentCat }: any) {
           </div>
         )}
         {currentTab === "overview" && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 overflow-auto">
             {currentCat.overall?.map((overall: string, index: number) => (
               <li
                 className="list-none text-textfield text-base not-italic font-normal leading-6"
@@ -123,7 +123,7 @@ export default function Detailslearning({ currentCat }: any) {
           </div>
         )}
         {currentTab === "characteristics" && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 overflow-auto">
             {currentCat.characteristics?.map((charac: string, index: number) => (
               <p
                 className="text-textfield text-base not-italic font-normal leading-6"
@@ -135,7 +135,7 @@ export default function Detailslearning({ currentCat }: any) {
           </div>
         )}
         {currentTab === "grooming" && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 overflow-auto">
             {currentCat.grooming?.map((groom: string, index: number) => (
               <p
                 className="text-textfield text-base not-italic font-normal leading-6"
@@ -147,7 +147,7 @@ export default function Detailslearning({ currentCat }: any) {
           </div>
         )}
         {currentTab === "playing_with_cats" && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 overflow-auto">
             {currentCat.playing_with_cats?.map((playing: string, index: number) => (
               <p
                 className="text-textfield text-base not-italic font-normal leading-6"

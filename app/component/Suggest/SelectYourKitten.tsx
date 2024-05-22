@@ -25,22 +25,22 @@ function SelectYourKitten() {
           คาดคะเนพันธุ์แมว
         </span>
       </div>
-      <div className="flex flex-col items-start gap-4 max-h-[550px] overflow-auto">
+      <div className="flex flex-col items-start gap-4 max-h-[450px] overflow-auto border border-solid border-red-500">
         {kittenData?.map((kitten: any, index: number) => (
           <button
             key={index}
             onClick={() => router.push(`/main/suggest/result_cat/${kitten.id}`)}
-            className="flex flex-col w-[350px] p-4 items-start gap-[10px] rounded-2xl border-[2px] border-solid border-black01"
+            className="flex flex-col w-[350px] h-150 p-4 items-start gap-[10px] rounded-2xl border-[2px] border-solid border-black01"
           >
             <p className="text-center text-black01 text-base not-italic font-normal leading-6">
               {kitten.name}
             </p>
             <Image
               src={process.env.NEXT_PUBLIC_API_IMAGES + kitten.profile}
-              width={300}
+              width={150}
               height={150}
               alt={kitten.name}
-              className="rounded-lg"
+              className="rounded-lg w-150 h-150 object-cover overflow-hidden"
               layout="responsive"
             />
           </button>

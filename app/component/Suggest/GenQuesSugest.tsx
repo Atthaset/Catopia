@@ -17,7 +17,7 @@ function GenQuesSugest({ progress, setProgress }: any) {
   const [allSelected, setAllSelected] = useState([]);
 
   useEffect(() => {
-    //console.log(allSelected);
+    console.log(allSelected);
     if (allSelected.length === 8) {
       handleSentAnswer();
     }
@@ -96,13 +96,13 @@ function GenQuesSugest({ progress, setProgress }: any) {
           {QuestionData[current].question}
         </span>
       </div>
-      <div className="flex flex-col items-start gap-4 max-h-[450px] overflow-auto">
+      <div className="flex flex-col items-start gap-4 max-h-[320px] overflow-auto">
         {QuestionData[current].choices.map((choice: string, index: number) => (
           <button
             key={index}
-            onClick={() => setSelectChoice(index + 1)}
+            onClick={() => setSelectChoice(index)}
             className={`flex items-center justify-between w-[364px] gap-2.5 p-4 border-black01 ${
-              index + 1 !== selectChoice
+              index !== selectChoice
                 ? "rounded-lg border-2 border-solid"
                 : "border-primary rounded-lg border-2 border-solid"
             } hover:bg-primary hover:text-white`}
