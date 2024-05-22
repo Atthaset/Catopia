@@ -96,9 +96,9 @@ export default function Genquestion({ progress, setProgress }: any) {
             onClick={() => setSelectChoice(index)}
             className={`flex items-center justify-between w-[364px] gap-2.5 p-4 border-black01 ${
               index !== selectChoice
-                ? "rounded-lg border-2 border-solid"
-                : "border-primary rounded-lg border-2 border-solid"
-            } hover:bg-primary hover:text-white`}
+                ? "rounded-lg border-2 border-solid text-black01"
+                : "border-primary rounded-lg border-2 border-solid bg-primary text-white"
+            }`}
           >
             <span>{choice}</span>
             {index === selectChoice && (

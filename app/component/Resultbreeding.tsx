@@ -178,7 +178,7 @@ export default function Resultbreeding() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col relative items-center h-full mt-4 border border-solid border-red-600">
+        <div className="flex flex-col relative items-center h-full mt-4">
           <div className="flex flex-col justify-center items-center relative shrink-0 z-10 w-[364px] h-[424px] rounded-2xl bg-white shadow-[0px_4px_25px_0px_rgba(0,0,0,0.16)]">
             <div className="flex flex-col shrink-0 items-center gap-2 w-[316px] h-[376px] overflow-auto">
               <div className="flex items-center justify-between p-1 shrink-0 w-[316px] h-[42px] bg-blue02 rounded-lg">
