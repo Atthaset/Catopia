@@ -86,7 +86,7 @@ export default function Detailslearning({ currentCat }: any) {
           </span>
         </button>
       </div>
-      <div className="flex pb-24 border border-solid border-red-600">
+      <div className="flex pb-24">
         {currentTab === "nature" && (
           <div className="flex flex-col gap-4 overflow-auto">
             {currentCat.description?.map((desc: string, index: number) => (

@@ -178,10 +178,10 @@ export default function Resultbreeding() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col relative items-center h-full mt-4">
+        <div className="flex flex-col relative items-center h-full mt-4 border border-solid border-red-600">
           <div className="flex flex-col justify-center items-center relative shrink-0 z-10 w-[364px] h-[424px] rounded-2xl bg-white shadow-[0px_4px_25px_0px_rgba(0,0,0,0.16)]">
             <div className="flex flex-col shrink-0 items-center gap-2 w-[316px] h-[376px] overflow-auto">
-              <div className="flex items-center justify-between p-1 shrink-0 w-[316px] h-[42px] fixed bg-blue02 rounded-lg">
+              <div className="flex items-center justify-between p-1 shrink-0 w-[316px] h-[42px] bg-blue02 rounded-lg">
                 <button
                   type="button"
                   onClick={() => isShowGender("showMaleKitten")}
@@ -219,7 +219,7 @@ export default function Resultbreeding() {
                   </p>
                 </button>
               </div>
-              <div className="flex flex-col items-center gap-2 w-[316px] h-full mt-12 overflow-y-auto">
+              <div className="flex flex-col items-center gap-2 w-[316px] h-full overflow-y-auto">
                 {showMaleKitten &&
                   showKitten
                     .filter((kitten: any) => kitten.sex === "M")
@@ -288,7 +288,7 @@ export default function Resultbreeding() {
           <div className="flex flex-col items-center absolute gap-6 top-[115px] w-full h-full rounded-t-2xl bg-white">
             <div className="flex mt-[320px]">
             </div>
-            <div className="flex flex-col justify-center items-start gap-4 pb-12">
+            <div className="flex flex-col justify-center items-start gap-4 pb-24">
               <button
                 onClick={refreshQuestion}
                 type="button"
