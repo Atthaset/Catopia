@@ -17,7 +17,7 @@ function GenQuesSugest({ progress, setProgress }: any) {
   const [allSelected, setAllSelected] = useState([]);
 
   useEffect(() => {
-    console.log(allSelected);
+    // console.log(allSelected);
     if (allSelected.length === 8) {
       handleSentAnswer();
     }
@@ -96,7 +96,7 @@ function GenQuesSugest({ progress, setProgress }: any) {
           {QuestionData[current].question}
         </span>
       </div>
-      <div className="flex flex-col items-start gap-4 max-h-[320px] overflow-auto">
+      <div className="flex flex-col items-start gap-4 h-[320px] overflow-auto">
         {QuestionData[current].choices.map((choice: string, index: number) => (
           <button
             key={index}
@@ -121,7 +121,7 @@ function GenQuesSugest({ progress, setProgress }: any) {
       <button
         type="submit"
         onClick={handleSelectChoice}
-        className="flex w-[364px] justify-center items-center gap-2.5 px-4 py-2 bg-primary text-white border rounded-lg border-solid text-base not-italic font-normal leading-6"
+        className="flex fixed w-[364px] justify-center items-center gap-2.5 px-4 py-2 mt-[480px] bg-primary text-white border rounded-lg border-solid text-base not-italic font-normal leading-6"
       >
         ถัดไป
       </button>

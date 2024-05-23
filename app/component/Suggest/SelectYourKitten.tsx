@@ -25,7 +25,7 @@ function SelectYourKitten() {
           คาดคะเนพันธุ์แมว
         </span>
       </div>
-      <div className="flex flex-col items-start gap-4 max-h-[450px] overflow-auto border border-solid border-red-500">
+      <div className="flex flex-col items-start gap-4 max-h-[450px] overflow-auto">
         {kittenData?.map((kitten: any, index: number) => (
           <button
             key={index}

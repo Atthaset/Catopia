@@ -12,11 +12,13 @@ import Drawer from "@/app/component/MUI/Drawer";
 export default function Home() {
 
   const [suggestData, setSuggestData] = useState([]);
+  const [notification, setNotification] = useState<any[]>([]);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
   useEffect(() => {
     getSuggest();
+    getNotification();
   }, []);
 
   const getSuggest = async () => {
@@ -37,15 +39,35 @@ export default function Home() {
     }
   };
 
+const getNotification = async () => {
+    try {
+        const response = await axios.get('/api/user/noti', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (response.status === 200) {
+            setNotification(response.data.data);
+        }
+
+    } catch (error) {
+        console.log('Error : ', error);
+    }
+}
+
   // console.log("suggestData : ", suggestData);
+
+  // console.log("notification : ", notification);
+  
 
   return (
     <div className="flex flex-col items-start gap-4 mx-8 pb-24 mt-2">
-      <Homeheader setOpenDrawer={setOpenDrawer} />
+      <Homeheader setOpenDrawer={setOpenDrawer} notification={notification}/>
       <Homerecommand />
       <Homeinterest suggestData={suggestData} />
       <Homerefer />
-      <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+      <Drawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} notification={notification}/>
     </div>
   );
 }

@@ -41,7 +41,7 @@ function ResultUser() {
     setResultSuggest(resultMatching);
   }
 
-  console.log("resultSuggest: ", resultSuggest);
+  // console.log("resultSuggest: ", resultSuggest);
 
   return (
     <div

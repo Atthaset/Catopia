@@ -5,12 +5,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import learningcats from "../file/learningcats.json";
 
-export default function Homeheader({ setOpenDrawer }: any) {
+export default function Homeheader({ setOpenDrawer, notification }: any) {
   const router = useRouter();
 
   const [currentDate, setCurrentDate] = useState(new Date());
   const [newListCats, setNewListCats] = useState<any[]>([]);
   const [activeSearch, setActiveSearch] = useState<any[]>([]);
+
+  const [showNotification, setShowNotification] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,15 +27,16 @@ export default function Homeheader({ setOpenDrawer }: any) {
     }
   }, [learningcats]);
 
-  function listCatBreed() {
-    setNewListCats(learningcats.map((cat: any) => ({
-      thai: cat.name,
-      english: cat.english_name,
-    })
-    ));
-  }
-
   // console.log("newListCats : ", newListCats);
+
+  function listCatBreed() {
+    setNewListCats(
+      learningcats.map((cat: any) => ({
+        thai: cat.name,
+        english: cat.english_name,
+      }))
+    );
+  }
 
   function handleSearch(e: any) {
     const searchValue = e.target.value.toLowerCase();
@@ -43,14 +46,44 @@ export default function Homeheader({ setOpenDrawer }: any) {
     }
     setActiveSearch(
       newListCats
-        .filter((words: any) => words.thai.toLowerCase().includes(searchValue) || words.english.toLowerCase().includes(searchValue))
+        .filter(
+          (words: any) =>
+            words.thai.toLowerCase().includes(searchValue) ||
+            words.english.toLowerCase().includes(searchValue)
+        )
         .map((word: any) => word.thai)
         .slice(0, 5)
     );
   }
 
   const selectSearch = (cat: string) => {
-    router.push(`/main/home/learning/${cat}`);//slug
+    router.push(`/main/home/learning/${cat}`); //slug
+  };
+
+  useEffect(() => {
+    // console.log("notification in HomeHeader : ", notification);
+
+    const today = new Date().toISOString().split("T")[0];
+    const lastShownDay = localStorage.getItem('lastShownDay')
+    const storedNotification = localStorage.getItem('shownNotification')
+
+    if(lastShownDay !== today){
+      setShowNotification(true);
+      localStorage.setItem('lastShownDay', today)
+    }else if(storedNotification !== null){
+      setShowNotification(JSON.parse(storedNotification));// T or F base on storedNotification in localsotrage
+      // console.log(JSON.parse(storedNotification));
+      
+    }else if(notification !== null){
+      setShowNotification(true);
+    }
+
+  }, [notification]);
+
+  const toggleDrawer = () => {
+    setOpenDrawer(true);
+    setShowNotification(false);
+    localStorage.setItem('shownNotification', 'false')
   };
 
   return (
@@ -59,14 +92,22 @@ export default function Homeheader({ setOpenDrawer }: any) {
         <h1 className="shrink-0 text-2xl text-primary not-italic font-semibold leading-8">
           เลือกแมวที่คุณต้องการ
         </h1>
-        <button onClick={() => setOpenDrawer(true)} className="flex justify-center items-center shrink-0">
-          <Image
-            src="/Notification.svg"
-            width={24}
-            height={24}
-            alt="Notification-btn"
-          />
-        </button>
+        <div className="relative">
+          <button
+            onClick={toggleDrawer}
+            className="flex justify-center items-center shrink-0"
+          >
+            <Image
+              src="/Notification.svg"
+              width={24}
+              height={24}
+              alt="Notification-btn"
+            />
+            {showNotification && (
+              <span className=" absolute top-0 right-1 block h-[9px] w-[9px] rounded-full bg-error border-[2px] border-white"></span>
+            )}
+          </button>
+        </div>
       </div>
       <span className="text-base text-textfield not-italic font-normal leading-6">
         {currentDate.toLocaleString("th-TH", {

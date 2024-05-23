@@ -8,36 +8,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function DrawerExample({ openDrawer, setOpenDrawer }: any) {
+export default function DrawerExample({ openDrawer, setOpenDrawer, notification }: any) {
 
     const router = useRouter();
-
-    const [notification, setNotification] = useState<any[]>([]);
 
     const toggleDrawer = (state: boolean) => () => {
         setOpenDrawer(state);
     };
-
-    useEffect(() => {
-        getNotification();
-    }, []);
-
-    const getNotification = async () => {
-        try {
-            const response = await axios.get('/api/user/noti', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-
-            if (response.status === 200) {
-                setNotification(response.data.data);
-            }
-
-        } catch (error) {
-            console.log('Error : ', error);
-        }
-    }
 
     // console.log('notification : ', notification);
 
@@ -81,7 +58,7 @@ export default function DrawerExample({ openDrawer, setOpenDrawer }: any) {
                                     <div className='flex w-full justify-between items-center'>
                                         <div className='flex flex-col gap-1'>
                                             <span className='text-black01 text-base not-italic font-bold leading-6'>{noti.name} ({noti.appointment})</span>
-                                            <span className='text-black01 text-base not-italic font-bold leading-6'>{formatThaiDate(noti.appointmentDate)}</span>
+                                            <span className='text-black01 text-base not-italic font-normal leading-6'>{formatThaiDate(noti.appointmentDate)}</span>
                                         </div>
                                         <button type='button' onClick={() => router.push(`/main/profile/detail_treatment/${noti.catID}/${noti.id}`)}>
                                             <Image
